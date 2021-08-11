@@ -25,6 +25,8 @@ export function buildTooltip(bucket, e) {
     inner = `
       <tr><th>App</th><td>${sanitize(e.data.app)}</td></tr>
       <tr><th>Title</th><td>${sanitize(e.data.title)}</td></tr>
+      <tr><th>Repo</th><td>${sanitize(e.data.repo)}</td></tr>
+      <tr><th>Branch</th><td>${sanitize(e.data.branch)}</td></tr>
       `;
   } else if (bucket.type == 'web.tab.current') {
     inner = `
@@ -43,7 +45,7 @@ export function buildTooltip(bucket, e) {
       `;
   } else {
     inner = `
-      <tr><th>Data</th><td>${sanitize(JSON.stringify(e.data))}</td></tr>
+      ${Object.entries(e.data).sort((a1,a2)=>a1[0].localeCompare(a2[0])).map(arr=>`<tr><th>${arr[0]}</th><td>${arr[1]}</td></tr>`).join("")}
       `;
   }
   return `<table>
